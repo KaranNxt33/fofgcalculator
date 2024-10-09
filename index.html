@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="google-site-verification" content="akPyJIJ24eTJqgGXwgCt_NQd4Um2w6BAZHnYuzTIqGA" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>f of g calculator</title>
+    <meta name="description" content="f of g Calculator: Easily compute the composition of two functions, f(x) and g(x), with instant results. Ideal for students and quick math tasks.">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        .description {
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        #result {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 576px) {
+            #result {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    <!-- Include math.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.8.0/math.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">f of g calculator</h1>
+        
+        <div class="form-group">
+            <label for="f">Function f(x):</label>
+            <input type="text" class="form-control" id="f" placeholder="e.g., x^2 + 4" required>
+        </div>
+        <div class="form-group">
+            <label for="g">Function g(x):</label>
+            <input type="text" class="form-control" id="g" placeholder="e.g., 3*x - 2" required>
+        </div>
+        <div class="form-group">
+            <label for="x-value">Value of x:</label>
+            <input type="number" class="form-control" id="x-value" placeholder="e.g., 5" required>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="calculate()">Calculate</button>
+        <h2 class="mt-4 text-center" id="result">Result: </h2>
+        
+        <!-- Description Section -->
+        <div class="description">
+            <h4>Features:</h4>
+            <ul>
+                <li><strong>User-Friendly Interface:</strong> Enter your functions <code>f(x)</code> and <code>g(x)</code> along with a numeric value for <code>x</code> in a straightforward and intuitive format.</li>
+                <li><strong>Flexible Function Inputs:</strong> Define your functions using basic mathematical operations and exponentiation. The calculator supports expressions like <code>x^2 + 3</code>, <code>2*x - 1</code>, and <code>sqrt(x)</code>.</li>
+                <li><strong>Accurate Calculations:</strong> The tool uses <code>math.js</code>, a reliable math library, to ensure precise and accurate results.</li>
+                <li><strong>Instant Results:</strong> Get the result of <code>f(g(x))</code> immediately with just a click, making it perfect for quick calculations and educational purposes.</li>
+            </ul>
+
+            <h4>How It Works:</h4>
+            <ol>
+                <li><strong>Enter Functions:</strong> Input your functions <code>f(x)</code> and <code>g(x)</code> using the provided text fields. For example, enter <code>x^2 + 4</code> for <code>f(x)</code> and <code>3*x - 2</code> for <code>g(x)</code>.</li>
+                <li><strong>Specify Value:</strong> Enter the value of <code>x</code> you wish to use in the computation.</li>
+                <li><strong>Calculate:</strong> Click the "Calculate" button to perform the function composition and see the result instantly.</li>
+            </ol>
+
+            <h4>Examples of Use:</h4>
+            <ul>
+                <li><strong>Educational Tool:</strong> Great for understanding function composition in mathematics classes.</li>
+                <li><strong>Quick Calculations:</strong> Ideal for performing quick computations for homework, projects, or professional tasks.</li>
+                <li><strong>Learning Aid:</strong> Helps in learning how different functions interact and transform values.</li>
+            </ul>
+
+            <p>Explore the power of function composition and enhance your mathematical skills with our easy-to-use calculator. Whether you're solving problems or exploring mathematical concepts, our tool provides the precision and convenience you need.</p>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const f = document.getElementById('f').value;
+            const g = document.getElementById('g').value;
+            const x = parseFloat(document.getElementById('x-value').value);
+
+            if (isNaN(x)) {
+                document.getElementById('result').innerText = 'Please enter a valid number for x.';
+                return;
+            }
+
+            try {
+                // Parse g(x) and evaluate it
+                const gX = math.evaluate(g, { x });
+
+                // Parse f(g(x)) and evaluate it
+                const result = math.evaluate(f, { x: gX });
+
+                document.getElementById('result').innerText = `Result: ${result}`;
+            } catch (error) {
+                document.getElementById('result').innerText = 'There was an error in the functions provided.';
+            }
+        }
+    </script>
+</body>
+</html>
